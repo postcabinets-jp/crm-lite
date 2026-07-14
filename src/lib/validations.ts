@@ -431,6 +431,98 @@ export const deleteTagSchema = z.object({
   tagId: uuid,
 })
 
+// ─── Companies ─────────────────────────────────────────────
+export const createCompanySchema = z.object({
+  name: z
+    .string()
+    .min(1, '会社名は必須です')
+    .max(200, '会社名は200文字以内にしてください')
+    .transform((v) => v.trim()),
+  domain: optStr.pipe(
+    z
+      .string()
+      .max(200, 'ドメインは200文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+  industry: optStr.pipe(
+    z
+      .string()
+      .max(100, '業種は100文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+  employee_count: z
+    .number()
+    .int()
+    .min(0)
+    .max(9_999_999)
+    .optional()
+    .nullable(),
+  website_url: optStr.pipe(
+    z
+      .string()
+      .max(500, 'URLは500文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+  notes: optStr.pipe(
+    z
+      .string()
+      .max(5000, 'メモは5000文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+})
+
+export const updateCompanySchema = z.object({
+  companyId: uuid,
+  name: z
+    .string()
+    .min(1, '会社名は必須です')
+    .max(200, '会社名は200文字以内にしてください')
+    .transform((v) => v.trim()),
+  domain: optStr.pipe(
+    z
+      .string()
+      .max(200, 'ドメインは200文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+  industry: optStr.pipe(
+    z
+      .string()
+      .max(100, '業種は100文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+  employee_count: z
+    .number()
+    .int()
+    .min(0)
+    .max(9_999_999)
+    .optional()
+    .nullable(),
+  website_url: optStr.pipe(
+    z
+      .string()
+      .max(500, 'URLは500文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+  notes: optStr.pipe(
+    z
+      .string()
+      .max(5000, 'メモは5000文字以内にしてください')
+      .optional()
+      .transform((v) => v?.trim() || undefined),
+  ),
+})
+
+export const deleteCompanySchema = z.object({
+  companyId: uuid,
+})
+
 // ─── Pipelines ─────────────────────────────────────────────
 export const createPipelineSchema = z.object({
   name: z

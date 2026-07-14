@@ -3,13 +3,27 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { Users, BarChart3, Activity, Settings, LayoutDashboard } from 'lucide-react'
+import {
+  Users,
+  BarChart3,
+  Activity,
+  Settings,
+  LayoutDashboard,
+  Building2,
+  Columns,
+  BarChart2,
+  Mail,
+} from 'lucide-react'
 
 const navItems = [
   { href: '/dashboard', label: 'ダッシュボード', icon: LayoutDashboard },
   { href: '/dashboard/contacts', label: 'コンタクト', icon: Users },
-  { href: '/dashboard/deals', label: '案件', icon: BarChart3 },
+  { href: '/dashboard/companies', label: '会社', icon: Building2 },
+  { href: '/dashboard/deals', label: '案件リスト', icon: BarChart3 },
+  { href: '/dashboard/pipeline', label: 'パイプライン', icon: Columns },
   { href: '/dashboard/activities', label: 'アクティビティ', icon: Activity },
+  { href: '/dashboard/sequences', label: 'シーケンス', icon: Mail },
+  { href: '/dashboard/reports', label: 'レポート', icon: BarChart2 },
   { href: '/dashboard/settings', label: '設定', icon: Settings },
 ]
 
@@ -24,7 +38,7 @@ export function DashboardSidebar() {
         </div>
         <span className="font-semibold text-sm text-neutral-900">CRM Lite</span>
       </div>
-      <nav className="flex-1 px-2 py-3 space-y-0.5">
+      <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-y-auto">
         {navItems.map(({ href, label, icon: Icon }) => {
           const active = href === '/dashboard'
             ? pathname === '/dashboard'

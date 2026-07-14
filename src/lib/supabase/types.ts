@@ -23,6 +23,41 @@ export type OrgPlan = 'free' | 'pro' | 'enterprise'
 export interface Database {
   public: {
     Tables: {
+      companies: {
+        Row: {
+          id: string
+          org_id: string
+          name: string
+          domain: string | null
+          industry: string | null
+          employee_count: number | null
+          website_url: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          org_id: string
+          name: string
+          domain?: string | null
+          industry?: string | null
+          employee_count?: number | null
+          website_url?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          name?: string
+          domain?: string | null
+          industry?: string | null
+          employee_count?: number | null
+          website_url?: string | null
+          notes?: string | null
+          updated_at?: string
+        }
+      }
       organizations: {
         Row: {
           id: string
@@ -244,6 +279,7 @@ export interface Database {
 
 // Convenience types
 export type Organization = Database['public']['Tables']['organizations']['Row']
+export type Company = Database['public']['Tables']['companies']['Row']
 export type Contact = Database['public']['Tables']['contacts']['Row']
 export type Deal = Database['public']['Tables']['deals']['Row']
 export type Activity = Database['public']['Tables']['activities']['Row']
