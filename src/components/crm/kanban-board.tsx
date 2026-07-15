@@ -52,6 +52,8 @@ export function KanbanBoard({ initialDeals }: Props) {
       return
     }
 
+    const prevDeals = deals
+
     // Optimistic update
     setDeals((prev) =>
       prev.map((d) => (d.id === draggingId ? { ...d, stage } : d)),
@@ -59,12 +61,17 @@ export function KanbanBoard({ initialDeals }: Props) {
     setDraggingId(null)
     setOverStage(null)
 
-    // Server action
+    // Server action with rollback on failure
+    const draggedId = draggingId
     startTransition(async () => {
       const fd = new FormData()
-      fd.set('dealId', draggingId)
+      fd.set('dealId', draggedId)
       fd.set('stage', stage)
-      await updateDealStage(fd)
+      const result = await updateDealStage(fd)
+      if (result?.error) {
+        // Rollback optimistic update
+        setDeals(prevDeals)
+      }
     })
   }
 

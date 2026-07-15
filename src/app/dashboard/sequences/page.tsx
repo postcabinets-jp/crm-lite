@@ -81,7 +81,6 @@ export default async function SequencesPage() {
   } = await supabase.auth.getUser()
   if (!user) return null
 
-  // Try to fetch real sequences; fall back to demo data for now
   const { data: org } = await supabase
     .from('organizations')
     .select('id')
@@ -89,6 +88,17 @@ export default async function SequencesPage() {
     .limit(1)
     .single()
 
+  if (!org) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-neutral-500">
+          先に設定ページから組織を作成してください。
+        </p>
+      </div>
+    )
+  }
+
+  // Demo data until sequences table is implemented in Phase 2
   const sequences: SequenceRow[] = DEMO_SEQUENCES
 
   const activeCount = sequences.filter((s) => s.status === 'active').length
